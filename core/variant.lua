@@ -21,7 +21,7 @@ function variant_mt:__call(o)
 end
 
 function Variant(tag)
-  local v = {}
+  local v = { tag = tag }
   local mt = {}
 
   function mt:__call(o)
@@ -34,17 +34,6 @@ function Variant(tag)
   end
 
   setmetatable(v, mt)
-
-  -- v.metatable.__call = function(self, o)
-  --   o = o or {} -- create object if user does not provide one
-  --   setmetatable(o, v)
-  --   o.__index = v
-  --   if o.init then
-  --     o:init(o)
-  --   end
-  --   return o
-  --
-  -- end
 
   return v
 end

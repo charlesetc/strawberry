@@ -45,6 +45,8 @@ local function pretty(obj, max_depth)
     return (meta and meta.__tostring)
   end
 
+  local function bystring(a, b) return tostring(a) < tostring(b) end
+
   local function recurse(obj, depth)
     if type(obj) == "string" then
       -- Dump the string so that escape sequences are printed.
@@ -52,7 +54,7 @@ local function pretty(obj, max_depth)
     elseif type(obj) == "table" and depth < max_depth and not coerceable(obj) then
       local str = "{"
       local keys = ml.keys(obj)
-      table.sort(keys)
+      table.sort(keys, bystring)
 
       for _, k in ipairs(keys) do
         local v = obj[k]

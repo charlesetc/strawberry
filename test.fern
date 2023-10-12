@@ -14,4 +14,3 @@
 > getmetatable(b).index = getmetatable(b)
 
 > return b:test()
-
