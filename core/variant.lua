@@ -49,5 +49,4 @@ function Variant(tag)
   return v
 end
 
-
 return Variant

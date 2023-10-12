@@ -1,6 +1,7 @@
 require 'init'
 local expect = require 'expect'
 local main = require 'main'
+local variant = require 'core.variant'
 
 local task = {}
 
