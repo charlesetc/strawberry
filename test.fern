@@ -1,0 +1,17 @@
+
+> Variant = require 'core.variant'
+
+> Ball = Variant('Ball')
+
+>  L.log(Ball { x = 2 }, 2)
+
+> b = Ball { x = 2 }
+
+> return b
+
+> function Ball:test() return "testing " .. self.x end
+
+> getmetatable(b).index = getmetatable(b)
+
+> return b:test()
+
