@@ -1,4 +1,5 @@
 require 'init'
+local lake = require 'core.lake'
 local expect = require 'expect'
 
 local task = {}
@@ -6,8 +7,8 @@ local task = {}
 task.test = expect.run_tests
 task.accept = expect.accept
 
-function task.main()
-  print("main")
+function task.main(a, b, c)
+  print("main", a, b, c)
 end
 
-task[arg[1] or 'test'](select(2, ...))
+lake(task, 'test')

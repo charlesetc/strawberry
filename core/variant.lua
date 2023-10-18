@@ -1,4 +1,8 @@
 
+local callable = require "callable"
+local metatable = require "metatable"
+local ml = require "ml"
+
 -- TODO: 
 --
 -- 1. Write match
@@ -8,34 +12,45 @@
 --    making use of these variants.
 -- 6. Write inreal.space in lua
 
-variant_mt = {}
+local Variant = {}
 
-function variant_mt:__call(o)
-  o = o or {} -- create object if user does not provide one
-  setmetatable(o, v)
-  self.__index = self
-  if o.init then
-    o:init(o)
-  end
-  return o
-end
-
-function Variant(tag)
+local function create_new_variant_type(tag)
   local v = { tag = tag }
-  local mt = {}
 
-  function mt:__call(o)
-    o = o or {} -- create object if user does not provide one
-    setmetatable(o, { __index = v })
+  local function create(o)
+    o = o or {}
     if o.init then
       o:init(o)
     end
+
+    local m = metatable(o)
+    m.__index = v
+
+    function m:__tostring()
+      local fields = ml.keys(o)
+      local result = o.tag .. " {"
+
+      for _, k in ipairs(fields) do
+        if k ~= "tag" then
+          result = result .. k .. " = " .. tostring(o[k]) .. ", "
+        end
+      end
+
+      return result:sub(1, -3) .. "}"
+    end
+
+
     return o
   end
 
-  setmetatable(v, mt)
+  function v:match(cases)
+    return {"matching", self.tag, cases}
+  end
 
+  callable(v, create)
   return v
 end
+
+callable(Variant, create_new_variant_type)
 
 return Variant

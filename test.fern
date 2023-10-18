@@ -1,16 +1,23 @@
 
-> Variant = require 'core.variant'
+> require 'init'
+> Variant = require 'variant'
 
 > Ball = Variant('Ball')
 
->  L.log(Ball { x = 2 }, 2)
-
-> b = Ball { x = 2 }
+> b = Ball { x = 2, y = 3 ,z = 4  }
 
 > return b
+
+> return tostring(b) 
+
+> return getmetatable(b)
+
+> return b:match(2)
 
 > function Ball:test() return "testing " .. self.x end
 
 > getmetatable(b).index = getmetatable(b)
 
 > return b:test()
+
+> return b
