@@ -12,7 +12,7 @@
 
 > return getmetatable(b)
 
-> return b:match(2)
+> return b:match({Ball = function() return "handling ball" end, That = function() return "wow" end})
 
 > function Ball:test() return "testing " .. self.x end
 

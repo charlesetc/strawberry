@@ -3,14 +3,14 @@ local expect = require "expect"
 
 local function foo()
   print("foo")
-  return 2
+  return 3
 end
 
 expect.test("test once", [[
 foo
-2
-2
-2
+3
+3
+3
 ]], function()
   local f = once(foo)
   print(f())

@@ -44,7 +44,12 @@ local function create_new_variant_type(tag)
   end
 
   function v:match(cases)
-    return {"matching", self.tag, cases}
+    local f = cases[v.tag]
+    if f then
+      return f(self)
+    else
+      error("match error: no case for " .. v.tag)
+    end
   end
 
   callable(v, create)
